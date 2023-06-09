@@ -1,35 +1,18 @@
 <template>
   <div class="container">
-    <form class="form" @submit.prevent action="#" method="post">
-      <h3 class="form__title">Создание поста</h3>
-      <input 
-      class="form__input" 
-      :value="title"
-      @input="title = $event.target.value" 
-      type="text" 
-      placeholder="Название"
-      >
-      <input 
-      class="form__input" 
-      :value="body" 
-      @input="body = $event.target.value" 
-      type="text" 
-      placeholder="Описание"
-      >
-      <button 
-      class="form__button" 
-      @click="createPost" 
-      type="form__submit">Создать</button>
-    </form>
-    <div class="post" v-for="post in posts">
-      <div><strong>Название:</strong> {{ post.title }}</div>
-      <div><strong>Описание:</strong> {{ post.body }}</div>
-    </div>
+    <post-form />
+    <post-list />
   </div>
 </template>
 
 <script>
+import PostList from '@components/PostList';
+import PostForm from '@components/PostForm';
+
 export default {
+  components: {
+    PostForm, PostList
+  },
   data() {
     return {
       posts: [
