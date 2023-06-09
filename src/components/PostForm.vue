@@ -3,25 +3,46 @@
     <h3 class="form__title">Создание поста</h3>
     <input
       class="form__input"
-      :value="title"
-      @input="title = $event.target.value"
+      v-model="post.title"
       type="text"
       placeholder="Название"
     />
     <input
       class="form__input"
-      :value="body"
-      @input="body = $event.target.value"
+      v-model="post.body"
       type="text"
       placeholder="Описание"
     />
-    <button class="form__button" @click="createPost" type="form__submit">
+    <button class="form__button"
+      @click="createPost"
+      type="form__submit"
+    >
       Создать
     </button>
   </form>
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      post : {
+        title: '',
+        body: ''
+      }
+    }
+  },
+  methods: {
+    createPost() {
+      this.post.id = Date.now();
+      this.$emit('create', this.post);
+      this.post = {
+        title: '',
+        body: ''
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>
