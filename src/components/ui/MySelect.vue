@@ -32,5 +32,6 @@
   padding: 8px;
   border: 1px solid teal;
   border-radius: 4px;
+  cursor: pointer;
 }
 </style>

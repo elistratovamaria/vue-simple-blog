@@ -14,6 +14,17 @@
       v-if="!isPostsLoading"
     />
     <div v-else>Идет загрузка...</div>
+    <div class="page-wrapper">
+      <div 
+        class="page" 
+        v-for="pageNumber in totalPages" 
+        :key="pageNumber"
+        :class="{
+          'page--current': page === pageNumber
+        }"
+        @click="changePage(pageNumber)"
+      >{{ pageNumber }}</div>
+    </div>
   </div>
 </template>
 
@@ -34,6 +45,9 @@ export default {
       isPostsLoading: false,
       selectedSort: "",
       searchQuery: "",
+      page: 1,
+      limit: 10,
+      totalPages: 0,
       sortOptions: [
         { value: "title", name: "По названию" },
         { value: "body", name: "По содержанию" },
@@ -51,12 +65,21 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
+    changePage(pageNumber) {
+      this.page = pageNumber;
+    },
     async fetchPosts() {
       this.isPostsLoading = true;
       try {
         const response = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts?_limit=10"
-        );
+          'https://jsonplaceholder.typicode.com/posts', 
+          {
+            params: {
+              _page: this.page,
+              _limit: this.limit
+            }
+          });
+        this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit);
         this.posts = response.data;
       } catch (e) {
         throw new Error(e);
@@ -78,7 +101,11 @@ export default {
       return this.sortedPosts.filter((post) => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
     }
   },
-  watch: {},
+  watch: {
+    page() {
+      this.fetchPosts();
+    }
+  },
 };
 </script>
 
@@ -97,5 +124,25 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.page-wrapper {
+  display: flex;
+  gap: 5px;
+}
+
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  min-height: 30px;
+  border: 1px solid teal;
+  cursor: pointer;
+}
+
+.page--current {
+  color: white;
+  background-color: teal;
 }
 </style>
