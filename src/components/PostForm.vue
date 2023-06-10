@@ -23,11 +23,7 @@
 </template>
 
 <script>
-import MyBytton from './ui/MyButton';
 export default {
-  components: {
-    MyBytton
-  },
   data() {
     return {
       post : {
