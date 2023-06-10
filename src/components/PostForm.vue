@@ -13,17 +13,21 @@
       type="text"
       placeholder="Описание"
     />
-    <button class="form__button"
+    <my-button class="form__button"
       @click="createPost"
-      type="form__submit"
+      type="submit"
     >
       Создать
-    </button>
+    </my-button>
   </form>
 </template>
 
 <script>
+import MyBytton from './ui/MyButton';
 export default {
+  components: {
+    MyBytton
+  },
   data() {
     return {
       post : {
@@ -69,23 +73,7 @@ export default {
 }
 
 .form__button {
-  align-self: center;
-  padding: 10px 20px;
-  background-color: teal;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  transition: 0.3s ease-out;
-  cursor: pointer;
-}
-
-.form__button:hover,
-.form__button:focus {
-  opacity: 0.8;
-}
-
-.form__button:active {
-  opacity: 0.6;
+  align-items: center;
 }
 
 .form {
