@@ -3,6 +3,7 @@
     <h3 class="form__title">Создание поста</h3>
     <my-input
       v-model="post.title"
+      v-focus
       type="text"
       placeholder="Название"
     />
