@@ -8,6 +8,11 @@
     <div class="post__buttons">
       <my-button 
         type="button"
+        @click="$router.push(`/posts/${post.id}`)"
+      >Открыть
+      </my-button>
+      <my-button 
+        type="button"
         @click="$emit('remove', post)"
       >Удалить
       </my-button>
@@ -36,5 +41,10 @@ export default {
   padding: 15px;
   border: 2px solid teal;
   border-radius: 4px;
+}
+
+.post__buttons {
+  display: flex;
+  gap: 15px;
 }
 </style>
